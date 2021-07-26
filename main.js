@@ -304,6 +304,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -315,24 +316,34 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
-//import {chatService} from './shared/data/chat.service'
+
 var AppComponent = /** @class */ (function () {
-    function AppComponent(http) {
+    function AppComponent(http, router) {
         this.http = http;
+        this.router = router;
         this.isLoggin = false;
         this.userId = 0;
-        this.isLogin = localStorage.getItem('isLoggedin');
-        this.title = 'app';
-        this.user = (localStorage.getItem('currentUser') != undefined) ? JSON.parse(localStorage.getItem('currentUser')) : '';
-        this.userId = (this.user) ? this.user['id'] : '0';
+        this.isLogin = localStorage.getItem("isLoggedin");
+        this.title = "app";
+        this.user =
+            localStorage.getItem("currentUser") != undefined
+                ? JSON.parse(localStorage.getItem("currentUser"))
+                : "";
+        this.userId = this.user ? this.user["id"] : "0";
         //this.initializeConnection();
+        this.router.events.subscribe(function (event) {
+            if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationEnd"]) {
+                ga("set", "page", event.urlAfterRedirects);
+                ga("send", "pageview");
+            }
+        });
     }
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-root',
-            template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html")
+            selector: "app-root",
+            template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
         }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], AppComponent);
     return AppComponent;
 }());
